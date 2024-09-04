@@ -4,12 +4,7 @@ import 'package:mind_glow_test/view/home/home_screen.dart';
 import 'package:mind_glow_test/view/auth/signup.dart';
 import 'package:provider/provider.dart';
 
-class SignInScreen extends StatefulWidget {
-  @override
-  _SignInScreenState createState() => _SignInScreenState();
-}
-
-class _SignInScreenState extends State<SignInScreen> {
+class SignInScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -34,12 +29,18 @@ class _SignInScreenState extends State<SignInScreen> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-                await Provider.of<AuthProvider>(context, listen: false)
-                    .login(_emailController.text, _passwordController.text);
-                _emailController.clear();
-                _passwordController.clear();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
+                try {
+                  await Provider.of<AuthProvider>(context, listen: false)
+                      .login(_emailController.text, _passwordController.text);
+                  _emailController.clear();
+                  _passwordController.clear();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => RootScreen()),
+                  );
+                } catch (error) {
+                  _showErrorDialog(context, error.toString());
+                }
               },
               child: Text('Login'),
             ),
@@ -54,6 +55,22 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Login Failed'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('OK'),
+          ),
+        ],
       ),
     );
   }

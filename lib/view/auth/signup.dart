@@ -1,14 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:mind_glow_test/view%20model/auth_provider.dart';
 import 'package:provider/provider.dart';
 
-class SignUpScreen extends StatefulWidget {
-  @override
-  _SignUpScreenState createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
+class SignUpScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -33,11 +27,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-                await Provider.of<AuthProvider>(context, listen: false)
-                    .signUp(_emailController.text, _passwordController.text);
-                _emailController.clear();
-                _passwordController.clear();
-                Navigator.pop(context);
+                try {
+                  await Provider.of<AuthProvider>(context, listen: false)
+                      .signUp(_emailController.text, _passwordController.text);
+                  _emailController.clear();
+                  _passwordController.clear();
+                  Navigator.pop(context);
+                } catch (error) {
+                  _showErrorDialog(context, error.toString());
+                }
               },
               child: Text('Sign Up'),
             ),
@@ -49,6 +47,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Sign Up Failed'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('OK'),
+          ),
+        ],
       ),
     );
   }
