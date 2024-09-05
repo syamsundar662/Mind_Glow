@@ -18,7 +18,6 @@ class MoodTrackerScreenState extends State<MoodTrackerScreen> {
   @override
   void initState() {
     super.initState();
-    // Fetch the mood history when the screen is loaded
     Provider.of<MoodProvider>(context, listen: false).fetchMoodHistory();
   }
 
@@ -118,7 +117,7 @@ class MoodTrackerScreenState extends State<MoodTrackerScreen> {
                           ],
                         ),
                         const Spacer(),
-                        IconButton( 
+                        IconButton(
                           icon: const Icon(Icons.delete),
                           onPressed: () {
                             setState(() {
@@ -138,4 +137,3 @@ class MoodTrackerScreenState extends State<MoodTrackerScreen> {
     );
   }
 }
-

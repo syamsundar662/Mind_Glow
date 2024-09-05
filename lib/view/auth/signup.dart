@@ -95,7 +95,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                           // ignore: use_build_context_synchronously
                           context,
                           CupertinoPageRoute(
-                              builder: (context) => SignInScreen()),
+                              builder: (context) => const SignInScreen()),
                         );
                       } catch (error) {
                         // ignore: use_build_context_synchronously
@@ -117,7 +117,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                 Navigator.pushAndRemoveUntil(
                     context,
                     CupertinoPageRoute(
-                        builder: (context) => SignInScreen()), (route) => false,);
+                        builder: (context) => const SignInScreen()), (route) => false,);
               },
               child: const Text('Already have an account? Login',
                   style: TextStyle(color: Colors.blueGrey)),

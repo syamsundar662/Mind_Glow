@@ -7,12 +7,17 @@ import 'package:mind_glow_test/view/auth/signup.dart';
 import 'package:mind_glow_test/view/widgets/custom_text_field.dart';
 import 'package:mind_glow_test/view/widgets/sub_heading.dart';
 import 'package:provider/provider.dart';
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
 
-class SignInScreen extends StatelessWidget {
+  @override
+  SignInScreenState createState() => SignInScreenState();
+}
+
+class SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  SignInScreen({super.key});
+  bool _isLoading = false; // Track loading state
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +27,12 @@ class SignInScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const SubHeadings(title: 'Sign In'), // Correct title to Sign Up
+            const SubHeadings(title: 'Sign In'),
             kHeight20,
             TextFormFields(
               hintText: 'Email',
               filledColor: Colors.grey.shade200,
-              obscure: false, // Change to false for email input
+              obscure: false,
               padding: homeSymmetricPadding,
               controller: _emailController,
             ),
@@ -41,29 +46,38 @@ class SignInScreen extends StatelessWidget {
             ),
             kHeight20,
             const SizedBox(height: 20),
-            ElevatedButton(
-              style: const ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(Colors.blueGrey)),
-              onPressed: () async {
-                try {
-                  await Provider.of<AuthProvider>(context, listen: false)
-                      .login(_emailController.text, _passwordController.text);
-                  _emailController.clear();
-                  _passwordController.clear();
-                  Navigator.pushAndRemoveUntil(
-                    // ignore: use_build_context_synchronously
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => const RootScreen()),
-                    (route) => false,
-                  );
-                } catch (error) {
-                  // ignore: use_build_context_synchronously
-                  _showErrorDialog(context, error.toString());
-                }
-              },
-              child: const Text('Login', style: TextStyle(color: Colors.white)),
-            ),
+            _isLoading // Show loading indicator if logging in
+                ? const CircularProgressIndicator()
+                : ElevatedButton(
+                    style: const ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(Colors.blueGrey)),
+                    onPressed: () async {
+                      setState(() {
+                        _isLoading = true; // Set loading to true
+                      });
+                      try {
+                        await Provider.of<AuthProvider>(context, listen: false)
+                            .login(_emailController.text, _passwordController.text);
+                        _emailController.clear();
+                        _passwordController.clear();
+                        Navigator.pushAndRemoveUntil(
+                          // ignore: use_build_context_synchronously
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => const RootScreen()),
+                          (route) => false,
+                        );
+                      } catch (error) {
+                        // ignore: use_build_context_synchronously
+                        _showErrorDialog(context, error.toString());
+                      } finally {
+                        setState(() {
+                          _isLoading = false;
+                        });
+                      }
+                    },
+                    child: const Text('Login', style: TextStyle(color: Colors.white)),
+                  ),
             kHeight200,
             TextButton(
               style: const ButtonStyle(

@@ -68,7 +68,7 @@ class GetStartedPage extends StatelessWidget {
                         WidgetStatePropertyAll(Colors.white)),
                 onPressed: () {
                   Navigator.push(context,
-                      CupertinoPageRoute(builder: (context) => SignInScreen()));
+                      CupertinoPageRoute(builder: (context) => const SignInScreen()));
                 },
                 child: const Text(
                   'Already have an account? Log In',

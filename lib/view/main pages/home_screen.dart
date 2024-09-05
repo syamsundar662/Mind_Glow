@@ -27,15 +27,11 @@ class HomePage extends StatelessWidget {
         ),
         actions: [
           InkWell(
-              onTap: () {
-                userProvider.logout();
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignInScreen()),
-                  (route) => false,
-                );
-              },
-              child: const Icon(Icons.logout)),
+            onTap: () {
+              _showLogoutConfirmationDialog(context, userProvider);
+            },
+            child: const Icon(Icons.logout),
+          ),
           kWidth10
         ],
       ),
@@ -254,7 +250,7 @@ class HomePage extends StatelessWidget {
         itemBuilder: (context, index, realIndex) {
           return Container(
             margin: homeSymmetricPadding,
-            decoration: BoxDecoration(
+            decoration: BoxDecoration( 
               gradient: LinearGradient(
                 colors: [
                   Colors.black87,
@@ -301,4 +297,36 @@ class HomePage extends StatelessWidget {
           aspectRatio: 3 / 1,
         ));
   }
+}
+
+void _showLogoutConfirmationDialog(
+    BuildContext context, AuthProvider userProvider) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Confirm Logout'),
+        content: const Text('Are you sure you want to log out?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the dialog
+            },
+            child: const Text('No'),
+          ),
+          TextButton(
+            onPressed: () {
+              userProvider.logout();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => SignInScreen()),
+                (route) => false,
+              );
+            },
+            child: const Text('Logout'),
+          ),
+        ],
+      );
+    },
+  );
 }

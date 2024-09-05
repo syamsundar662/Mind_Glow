@@ -1,6 +1,14 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+
+class InternetChecker {
+  Future<bool> isConnected() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    return connectivityResult != ConnectivityResult.none;
+  }
+}
 
 const String url = '';
 
@@ -118,6 +126,7 @@ const kWIdth30 = SizedBox(
 const kWIdth40 = SizedBox(
   width: 40,
 );
+
 
 List<String> dailyActivityHeadings = [
   "Morning Breath Awareness",
