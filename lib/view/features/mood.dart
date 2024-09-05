@@ -254,6 +254,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_glow_test/view%20model/mood_provider.dart';
 import 'package:mind_glow_test/view/features/home.dart';
+import 'package:mind_glow_test/view/widgets/custom_text.dart';
+import 'package:mind_glow_test/view/widgets/sub_heading.dart';
 import 'package:provider/provider.dart'; // Make sure to import this
 import 'package:mind_glow_test/utils/constants.dart';
 
@@ -389,55 +391,3 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
     );
   }
 }
-
-class CustomText extends StatelessWidget {
-  const CustomText({
-    super.key,
-    required this.title,
-    required this.size,
-    required this.fontWeight,
-    this.align,
-  });
-  final String title;
-  final double size;
-  final FontWeight fontWeight;
-  final TextAlign? align;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      title,
-      textAlign: align,
-      style: GoogleFonts.poppins(
-        fontSize: size,
-        fontWeight: fontWeight,
-      ),
-    );
-  }
-}
-
-List<IconData> moodIcons = [
-  Icons.sentiment_very_dissatisfied, // Depressed
-  Icons.sentiment_dissatisfied, // Sad
-  Icons.sentiment_neutral, // Neutral
-  Icons.sentiment_satisfied, // Happy
-  Icons.sentiment_very_satisfied,
-  Icons.sentiment_very_dissatisfied
-  // Overjoyed
-];
-List<Color> moodColors = [
-  Colors.purpleAccent, // Depressed (dark blue-grey)
-  Colors.orangeAccent, // Sad (medium blue-grey)
-  Colors.greenAccent, // Neutral (neutral grey)
-  Colors.greenAccent, // Happy (light green)
-  Colors.yellowAccent, // Overjoyed (bright green)
-  Colors.brown
-];
-List<String> moodDescriptions = [
-  'Depressed', // For Icons.sentiment_very_dissatisfied
-  'Sad', // For Icons.sentiment_dissatisfied
-  'Neutral', // For Icons.sentiment_neutral
-  'Happy', // For Icons.sentiment_satisfied
-  'Overjoyed',
-  'Dissatisfied' // For Icons.sentiment_very_satisfied
-];

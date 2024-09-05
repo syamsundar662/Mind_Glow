@@ -11,7 +11,7 @@ void size(BuildContext context) {
   screenFullHeight = MediaQuery.of(context).size.height;
 }
 
-const homeSymmetricPadding = EdgeInsets.symmetric(horizontal: 10);
+const homeSymmetricPadding = EdgeInsets.symmetric(horizontal: 12);
 const homePaddingAll5 = EdgeInsets.only(left: 10,right: 10,bottom: 5,top: 5);
 List<String> homeQuotes1 = [
   "The mind is everything. What you think, you become. – Buddha",
@@ -142,4 +142,58 @@ List<String> dailtActivityDescriptions = [
   "Spend a day being mindful of your digital usage. Notice when and why you reach for your phone or other devices. Try to minimize distractions and focus on being present in the physical world.",
   "Choose an object in your environment (like a plant, a cup, or a picture) and observe it closely for a few minutes. Notice the colors, shapes, and details that you may not have seen before.",
   "At the end of the day, write down your thoughts, feelings, and experiences. Focus on being present in the moment as you write, and let your thoughts flow without judgment.",
+];
+
+List<IconData> dailyActivitiesIcons = [
+  Icons.self_improvement, // Morning Breath Awareness
+  Icons.directions_walk, // Mindful Walking
+  Icons.timer, // One-Minute Mindfulness
+  Icons.restaurant, // Mindful Eating
+  Icons.hearing, // Mindful Listening
+  Icons.fitness_center, // Mindful Stretching
+  Icons.favorite, // Evening Gratitude
+  Icons.phone_disabled, // Digital Mindfulness
+  Icons.remove_red_eye, // Mindful Observation
+  Icons.book, // Mindful Journaling
+];
+
+List<IconData> mindfullResoursesIcon = [
+  Icons.menu_book_rounded,
+  Icons.web,
+  Icons.video_collection_rounded,
+  Icons.phone_android_rounded,
+];
+List<String> mindfullResourses = [
+  'Books',
+  'Websites',
+  'Videos',
+  'Social Media Accounts'
+];
+
+//mood page
+
+List<IconData> moodIcons = [
+  Icons.sentiment_very_dissatisfied, // Depressed
+  Icons.sentiment_dissatisfied, // Sad
+  Icons.sentiment_neutral, // Neutral
+  Icons.sentiment_satisfied, // Happy
+  Icons.sentiment_very_satisfied,
+  Icons.sentiment_very_dissatisfied
+  // Overjoyed
+];
+List<Color> moodColors = [
+  Colors.purpleAccent, // Depressed (dark blue-grey)
+  Colors.orangeAccent, // Sad (medium blue-grey)
+  Colors.greenAccent, // Neutral (neutral grey)
+  Colors.greenAccent, // Happy (light green)
+  Colors.yellowAccent, // Overjoyed (bright green)
+  Colors.brown
+];
+List<String> moodDescriptions = [
+  'Depressed', // For Icons.sentiment_very_dissatisfied
+  'Sad', // For Icons.sentiment_dissatisfied
+  'Neutral', // For Icons.sentiment_neutral
+  'Happy', // For Icons.sentiment_satisfied
+  'Overjoyed',
+  'Dissatisfied' // For Icons.sentiment_very_satisfied
 ];

@@ -12,7 +12,8 @@ class RootScreen extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.blueGrey,
         unselectedItemColor: Colors.grey,
-        items: const [
+        useLegacyColorScheme: false,
+        items: const [ 
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
