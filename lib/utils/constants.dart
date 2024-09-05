@@ -159,14 +159,14 @@ List<IconData> dailyActivitiesIcons = [
 
 List<IconData> mindfullResoursesIcon = [
   Icons.menu_book_rounded,
-  Icons.web,
   Icons.video_collection_rounded,
+  Icons.web,
   Icons.phone_android_rounded,
 ];
 List<String> mindfullResourses = [
   'Books',
-  'Websites',
   'Videos',
+  'Websites',
   'Social Media Accounts'
 ];
 
@@ -220,3 +220,31 @@ List<String> bookLinks = [
   "https://www.google.co.in/books/edition/Radical_Acceptance/njUp-vfM5DoC?hl=en&gbpv=1",
   "https://www.google.co.in/books/edition/10_Happier/Yc2ZAwAAQBAJ?hl=en&gbpv=1&printsec=frontcover"
 ];
+List<String> getStartedkeyFeatures = [
+  "Personalize Your Mental Health State",
+  "Intelligent Mood Tracking",
+  "Mindful Resources That Make You Happy"
+];
+
+List<String> getStartedDescriptions = [
+  "Tailor your mental well-being journey by tracking your emotions, setting personalized goals, and receiving insights that help you understand and improve your mental health.",
+  "Keep track of your emotional patterns with smart mood tracking, offering data-driven insights and trends that empower you to manage stress, anxiety, and other emotions.",
+  "Access a curated collection of mindfulness exercises, articles, and tools designed to promote happiness, relaxation, and emotional balance in your daily life."
+];
+  List<String> links = [
+    'https://www.youtube.com/watch?v=1ZYbU82GVz4', // 10 Minute Guided Meditation
+    'https://www.youtube.com/watch?v=ssss7V1_eyA', // Mindfulness Meditation for Beginners
+    'https://youtu.be/8BeKhf74fsE?si=Dr6WKaAImfWS-PDh', // Guided Meditation for Anxiety
+    'https://youtu.be/DPjB-1OCUMA?si=odcAyfQi903TjA_G', // Guided Meditation for Self-Love
+    'https://youtu.be/ztTexqGQ0VI?si=ug1dJFi2bLUUipM3', // Morning Meditation for Positivity
+    'https://youtu.be/Rx5X-fo_fEI?si=Gk0WwgdL2gUvpMK-', // 20-Minute Guided Meditation
+  ];
+
+  List<String> descriptions = [
+    'A simple 10-minute guided meditation to help you relax and focus on your breath.',
+    'An introduction to mindfulness meditation for beginners to develop awareness and presence.',
+    'This guided meditation is designed to help alleviate anxiety and bring calmness.',
+    'A guided session focused on fostering self-love and acceptance within yourself.',
+    'A refreshing morning meditation to start your day with positivity and gratitude.',
+    'A 20-minute guided meditation to help you release stress and enhance mindfulness.',
+  ];

@@ -1,46 +1,106 @@
+import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:mind_glow_test/model/mood_entry.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MoodProvider extends ChangeNotifier {
   final List<MoodEntry> _moodHistory = [];
-  DateTime? _lastMoodDate; // Track the date of the last mood entry
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   List<MoodEntry> get moodHistory => _moodHistory;
 
-  bool canAddMood() {
-    if (_lastMoodDate == null) return true; // No mood added yet
-    return !isSameDay(_lastMoodDate!, DateTime.now());
-  }
+  Future<void> addMood(String mood, IconData icon, Color color) async {
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
 
-  void addMood(String mood,IconData icons) {
-    if (!canAddMood()) return; // Prevent adding if mood already set for today
-    MoodEntry newEntry = MoodEntry(mood: mood, dateTime: DateTime.now(),icons);
-    _moodHistory.add(newEntry);
-    _lastMoodDate = DateTime.now(); // Update last mood date
-    notifyListeners();
-    // _saveMoodToFirebase(newEntry);
-  }
+      MoodEntry newEntry = MoodEntry(
+        mood: mood,
+        dateTime: DateTime.now(),
+        icon: icon,
+        moodColor: color,
+      );
 
-  // Future<void> _saveMoodToFirebase(MoodEntry entry) async {
-  //   await FirebaseFirestore.instance.collection('moodHistory').add({
-  //     'mood': entry.mood,
-  //     'dateTime': entry.dateTime.toIso8601String(),
-  //   });
-  // }
+      await _firestore.collection('users').doc(uid).collection('moods').add({
+        'mood': mood,
+        'dateTime': newEntry.dateTime.toIso8601String(),
+        'iconCode': icon.codePoint,
+        // ignore: deprecated_member_use
+        'color': color.value,
+      });
 
-  void deleteLastMood() {
-    if (_moodHistory.isNotEmpty) {
-      _moodHistory.removeLast(); // Remove the last mood entry
-      _lastMoodDate = _moodHistory.isNotEmpty ? _moodHistory.last.dateTime : null; // Update last mood date
+      _moodHistory.add(newEntry);
       notifyListeners();
-      // Optionally, delete from Firebase as well
-      // Implement deletion logic if needed
+    } catch (e) {
+      log('Error adding mood: $e');
     }
   }
 
-  bool isSameDay(DateTime date1, DateTime date2) {
-    return DateFormat('yyyy-MM-dd').format(date1) == DateFormat('yyyy-MM-dd').format(date2);
+  Future<void> fetchMoodHistory() async {
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+
+      QuerySnapshot snapshot = await _firestore
+          .collection('users')
+          .doc(uid)
+          .collection('moods')
+          .orderBy('dateTime', descending: true)
+          .get();
+
+      _moodHistory.clear();
+
+      for (var doc in snapshot.docs) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+
+        MoodEntry moodEntry = MoodEntry(
+          moodColor: Color(data['color']),
+          mood: data['mood'],
+          dateTime: DateTime.parse(data['dateTime']),
+          icon: IconData(data['iconCode'], fontFamily: 'MaterialIcons'),
+        );
+        _moodHistory.add(moodEntry);
+      }
+
+      notifyListeners();
+    } catch (e) {
+      log('Error fetching mood history: $e');
+    }
   }
+
+  void deleteMood(int index) async {
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+
+      QuerySnapshot snapshot = await _firestore
+          .collection('users')
+          .doc(uid)
+          .collection('moods')
+          .get();
+
+      await _firestore
+          .collection('users')
+          .doc(uid)
+          .collection('moods')
+          .doc(snapshot.docs[index].id)
+          .delete();
+
+      _moodHistory.removeAt(index);
+      notifyListeners();
+    } catch (e) {
+      log('Error deleting mood: $e');
+    }
+  }
+}
+
+class MoodEntry {
+  final String mood;
+  final DateTime dateTime;
+  final IconData icon;
+  final Color moodColor;
+
+  MoodEntry({
+    required this.mood,
+    required this.dateTime,
+    required this.icon,
+    required this.moodColor,
+  });
 }

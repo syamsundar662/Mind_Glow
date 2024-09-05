@@ -3,40 +3,77 @@ import 'package:mind_glow_test/view%20model/community_provider.dart';
 import 'package:mind_glow_test/view/main%20pages/community_user_details.dart';
 import 'package:mind_glow_test/view/widgets/sub_heading.dart';
 import 'package:provider/provider.dart';
-class UsersListPage extends StatelessWidget {
+
+class UsersListPage extends StatefulWidget {
+  const UsersListPage({super.key});
+
+  @override
+  State<UsersListPage> createState() => _UsersListPageState();
+}
+
+class _UsersListPageState extends State<UsersListPage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final communtyProvider =
+          Provider.of<UserProvider>(context, listen: false);
+      communtyProvider.fetchUsers();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(title: SubHeadings(title: 'Community')),
+      appBar: AppBar(
+        title: const SubHeadings(
+          title: 'Community',
+          color: Colors.white,
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.blueAccent,
+      ),
       body: userProvider.isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
               itemCount: userProvider.users.length,
               itemBuilder: (context, index) {
                 final user = userProvider.users[index];
                 return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 6.0,
-                          offset: Offset(0, 3),
-                        ),
-                      ],
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
                     ),
                     child: ListTile(
-                      contentPadding: const EdgeInsets.all(16.0),
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.blueAccent,
+                        child: Text(
+                          user.name?.substring(0, 1) ?? '?',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
                       title: Text(
                         user.name ?? '',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      subtitle: Text(user.phone ?? ''),
+                      subtitle: Text(user.phone ?? 'No phone available'),
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.blueAccent,
+                        size: 16,
+                      ),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -45,6 +82,7 @@ class UsersListPage extends StatelessWidget {
                           ),
                         );
                       },
+                      contentPadding: const EdgeInsets.all(16.0),
                     ),
                   ),
                 );
@@ -54,7 +92,8 @@ class UsersListPage extends StatelessWidget {
         onPressed: () {
           userProvider.fetchUsers(); // Fetch users on button press
         },
-        child: Icon(Icons.refresh),
+        backgroundColor: Colors.blueAccent,
+        child: const Icon(Icons.refresh, color: Colors.white),
       ),
     );
   }

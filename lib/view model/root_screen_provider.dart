@@ -5,14 +5,13 @@ import 'package:mind_glow_test/view/main%20pages/mood.dart';
 import 'package:mind_glow_test/view/main%20pages/resources.dart';
 
 class RootScreenProvider extends ChangeNotifier {
-  // String _mood = 'Neutral';
   int currentIndex = 0;
 
   final List<Widget> _screens = [
     const HomePage(),
     const MoodTrackerScreen(),
-     ResourcesPage(),
-     UsersListPage(),
+    const ResourcesPage(),
+    const UsersListPage(),
   ];
 
   Widget get currentScreen => _screens[currentIndex];
@@ -21,11 +20,4 @@ class RootScreenProvider extends ChangeNotifier {
     currentIndex = newIndex;
     notifyListeners();
   }
-
-  // String get mood => _mood;
-
-  // void updateMood(String newMood) {
-  //   _mood = newMood;
-  //   notifyListeners();
-  // }
 }

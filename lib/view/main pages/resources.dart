@@ -26,38 +26,57 @@ class ResourcesPageState extends State<ResourcesPage> {
     final commentsProvider = Provider.of<CommentsProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const SubHeadings(title:  'Educational Resourses')),
+      appBar: AppBar(
+        title: const SubHeadings(title: 'Educational Resources',color: Colors.white,),
+        centerTitle: true,
+        elevation: 2,
+        backgroundColor: Colors.blueAccent[200],
+      ),
       body: commentsProvider.isLoading
           ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
               itemCount: commentsProvider.comments.length,
               itemBuilder: (context, index) {
                 final comment = commentsProvider.comments[index];
                 return Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 16.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white, // Background color
-                      borderRadius:
-                          BorderRadius.circular(12), // Rounded corners
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black26, // Shadow color
-                          blurRadius: 6.0, // Spread radius
-                          offset: Offset(0, 3), // Shadow offset
-                        ),
-                      ],
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
                     ),
                     child: ListTile(
-                      contentPadding:
-                          const EdgeInsets.all(16.0), // Padding inside the card
+                      contentPadding: const EdgeInsets.all(16),
+                      leading: CircleAvatar(
+                        radius: 24,
+                        backgroundColor: Colors.blueAccent,
+                        child: Text(
+                          comment.name?.substring(0, 1) ?? '?',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
                       title: Text(
                         comment.name ?? '',
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold), // Bold title
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      subtitle: Text(comment.body ?? ''),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          comment.body ?? '',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[700],
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 );
@@ -67,7 +86,8 @@ class ResourcesPageState extends State<ResourcesPage> {
         onPressed: () {
           commentsProvider.fetchComments();
         },
-        child: const Icon(Icons.refresh),
+        backgroundColor: Colors.blueAccent,
+        child: const Icon(Icons.refresh, color: Colors.white),
       ),
     );
   }

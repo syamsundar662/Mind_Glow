@@ -1,57 +1,83 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mind_glow_test/utils/constants.dart';
 import 'package:mind_glow_test/view%20model/auth_provider.dart';
 import 'package:mind_glow_test/view/root/root_screen.dart';
 import 'package:mind_glow_test/view/auth/signup.dart';
+import 'package:mind_glow_test/view/widgets/custom_text_field.dart';
+import 'package:mind_glow_test/view/widgets/sub_heading.dart';
 import 'package:provider/provider.dart';
 
 class SignInScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  SignInScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Sign In')),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            TextField(
+            const SubHeadings(title: 'Sign In'), // Correct title to Sign Up
+            kHeight20,
+            TextFormFields(
+              hintText: 'Email',
+              filledColor: Colors.grey.shade200,
+              obscure: false, // Change to false for email input
+              padding: homeSymmetricPadding,
               controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
             ),
-            TextField(
+            kHeight10,
+            TextFormFields(
+              hintText: 'Password',
+              filledColor: Colors.grey.shade200,
+              obscure: true,
+              padding: homeSymmetricPadding,
               controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
-              obscureText: true,
             ),
-            SizedBox(height: 20),
+            kHeight20,
+            const SizedBox(height: 20),
             ElevatedButton(
+              style: const ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(Colors.blueGrey)),
               onPressed: () async {
                 try {
                   await Provider.of<AuthProvider>(context, listen: false)
                       .login(_emailController.text, _passwordController.text);
                   _emailController.clear();
                   _passwordController.clear();
-                  Navigator.pushReplacement(
+                  Navigator.pushAndRemoveUntil(
+                    // ignore: use_build_context_synchronously
                     context,
-                    MaterialPageRoute(builder: (context) => RootScreen()),
+                    CupertinoPageRoute(
+                        builder: (context) => const RootScreen()),
+                    (route) => false,
                   );
                 } catch (error) {
+                  // ignore: use_build_context_synchronously
                   _showErrorDialog(context, error.toString());
                 }
               },
-              child: Text('Login'),
+              child: const Text('Login', style: TextStyle(color: Colors.white)),
             ),
+            kHeight200,
             TextButton(
+              style: const ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(Colors.white)),
               onPressed: () {
-                Navigator.push(
+                Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => SignUpScreen()),
+                  CupertinoPageRoute(
+                      builder: (context) => const SignUpScreen()),
+                  (route) => false,
                 );
               },
-              child: Text('Don’t have an account? Sign Up'),
+              child: const Text('Don’t have an account? Sign Up',
+                  style: TextStyle(color: Colors.blueGrey)),
             ),
           ],
         ),
@@ -63,12 +89,12 @@ class SignInScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Login Failed'),
+        title: const Text('Login Failed'),
         content: Text(message),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('OK'),
+            child: const Text('OK'),
           ),
         ],
       ),

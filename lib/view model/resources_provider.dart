@@ -19,7 +19,9 @@ class CommentsProvider with ChangeNotifier {
 
     if (response.statusCode == 200) {
       final List<dynamic> jsonResponse = json.decode(response.body);
-      _resourseData = jsonResponse.map((json) => Resources.fromJson(json)).toList();
+      _resourseData =
+          jsonResponse.map((json) => Resources.fromJson(json)).toList();
+      // ignore: avoid_print
       print(_resourseData);
     } else {
       throw Exception('Failed to load comments');

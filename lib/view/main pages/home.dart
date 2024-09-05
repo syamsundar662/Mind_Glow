@@ -2,46 +2,40 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_glow_test/utils/constants.dart';
+import 'package:mind_glow_test/view%20model/auth_provider.dart';
+import 'package:mind_glow_test/view/auth/signin.dart';
 import 'package:mind_glow_test/view/main%20pages/features%20/book.dart';
-import 'package:mind_glow_test/view/main%20pages/features%20/social_media.dart';
 import 'package:mind_glow_test/view/main%20pages/features%20/videos.dart';
-import 'package:mind_glow_test/view/main%20pages/features%20/website.dart';
+import 'package:mind_glow_test/view/main%20pages/resources.dart';
 import 'package:mind_glow_test/view/widgets/sub_heading.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
   @override
   Widget build(BuildContext context) {
-
-    // final YoutubePlayerController _controller = YoutubePlayerController(
-    //   initialVideoId: YoutubePlayer.convertUrlToId(
-    //           'https://www.youtube.com/watch?v=inpok4MKVLM') ??
-    //       '',
-    //   flags: const YoutubePlayerFlags(
-    //     autoPlay: false,
-    //     mute: false,
-    //   ),
-    // );
-
+    final userProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         surfaceTintColor: Colors.blueGrey,
         backgroundColor: Colors.white,
         title: Text(
-          'Hey Syam',
+          'Hey Mate',
           style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 30),
         ),
         actions: [
           InkWell(
               onTap: () {
-                Navigator.push(
+                userProvider.logout();
+                Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => BookPage()),
+                  MaterialPageRoute(builder: (context) => SignInScreen()),
+                  (route) => false,
                 );
               },
-              child: const Icon(Icons.notifications_active_outlined)),
+              child: const Icon(Icons.logout)),
           kWidth10
         ],
       ),
@@ -66,19 +60,7 @@ class HomePage extends StatelessWidget {
               title: 'Mindful Resources',
               align: TextAlign.start,
             ),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: YoutubePlayer(
-            //     controller: _controller,
-            //     showVideoProgressIndicator: true,
-            //     onReady: () {
-            //       // Do something when the player is ready
-            //     },
-            //   ),
-            // ),
             kHeight10,
-
-            // _homeMindfullResourseList(context),
             ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -106,12 +88,10 @@ class HomePage extends StatelessWidget {
                       ),
                       const Spacer(),
                       IconButton(
-                        icon: Icon(Icons.arrow_forward_ios_rounded),
+                        icon: const Icon(Icons.arrow_forward_ios_rounded),
                         onPressed: () {
-                          // Navigate to the respective page based on index
                           switch (index) {
                             case 0:
-                              // Navigate to BookPage
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -119,24 +99,25 @@ class HomePage extends StatelessWidget {
                               );
                               break;
                             case 1:
-                              // Navigate to WebsitePage
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => WebsitePage()) ,
+                                MaterialPageRoute(
+                                    builder: (context) => const VideoPage()),
                               );
                               break;
                             case 2:
-                              // Navigate to VideoPage
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => VideoPage())
-                              );
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ResourcesPage()));
                               break;
                             case 3:
-                              // Navigate to SocialMediaPage
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => SocialMedia()),
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ResourcesPage()),
                               );
                               break;
                           }
@@ -202,47 +183,6 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-
-  // ListView _homeMindfullResourseList(BuildContext context) {
-  // return ListView.builder(
-  //   physics: const NeverScrollableScrollPhysics(),
-  //   shrinkWrap: true,
-  //   itemCount: mindfullResourses.length,
-  //   itemBuilder: (context, index) {
-  //     return Container(
-  //       margin: homePaddingAll5,
-  //       width: double.infinity,
-  //       height: 80,
-  //       decoration: BoxDecoration(
-  //         border: Border.all(width: .2),
-  //         borderRadius: BorderRadius.circular(20),
-  //       ),
-  //       child: Row(
-  //         children: [
-  //           kWIdth20,
-  //           Icon(mindfullResoursesIcon[index]),
-  //           Column(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: [
-  //               SubHeadings(
-  //                 title: mindfullResourses[index],
-  //               ),
-  //             ],
-  //           ),
-  //           const Spacer(),
-  //            IconButton(icon: Icon(Icons.arrow_forward_ios_rounded),
-  //             onPressed: () {
-
-  //             },
-  //            ),
-  //           kWidth10,
-  //         ],
-  //       ),
-  //     );
-  //   },
-  // );
-
-  // }
 
   SizedBox _homeDailyActivityList() {
     return SizedBox(
@@ -362,11 +302,3 @@ class HomePage extends StatelessWidget {
         ));
   }
 }
-
-
-List<String> videoLinks = [
-  'https://www.youtube.com/watch?v=ssss7V1_eyA',
-  'https://www.youtube.com/watch?v=ssss7V1_eyA',
-  'https://www.youtube.com/watch?v=ssss7V1_eyA',
-  'https://www.youtube.com/watch?v=ssss7V1_eyA'
-];
