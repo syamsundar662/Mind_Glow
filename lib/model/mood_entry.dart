@@ -1,9 +1,16 @@
+
 import 'package:flutter/material.dart';
 
 class MoodEntry {
   final String mood;
   final DateTime dateTime;
-  final IconData iconData;
+  final IconData icon;
+  final Color moodColor;
 
-  MoodEntry(this.iconData, {required this.mood, required this.dateTime});
+  MoodEntry({
+    required this.mood,
+    required this.dateTime,
+    required this.icon,
+    required this.moodColor,
+  });
 }

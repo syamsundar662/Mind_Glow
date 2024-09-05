@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mind_glow_test/view%20model/community_provider.dart';
-import 'package:mind_glow_test/view/main%20pages/community_user_details.dart';
+import 'package:mind_glow_test/view/main%20pages/features%20/community_user_details_screen.dart';
 import 'package:mind_glow_test/view/widgets/sub_heading.dart';
 import 'package:provider/provider.dart';
 

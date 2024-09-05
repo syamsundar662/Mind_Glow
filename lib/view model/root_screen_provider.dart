@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mind_glow_test/view/main%20pages/community.dart';
-import 'package:mind_glow_test/view/main%20pages/home.dart';
-import 'package:mind_glow_test/view/main%20pages/mood.dart';
-import 'package:mind_glow_test/view/main%20pages/resources.dart';
+import 'package:mind_glow_test/view/main%20pages/community_screen.dart';
+import 'package:mind_glow_test/view/main%20pages/home_screen.dart';
+import 'package:mind_glow_test/view/main%20pages/mood_screen.dart';
+import 'package:mind_glow_test/view/main%20pages/resources_screen.dart';
 
 class RootScreenProvider extends ChangeNotifier {
   int currentIndex = 0;

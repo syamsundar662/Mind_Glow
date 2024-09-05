@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mind_glow_test/model/mood_entry.dart';
 
 class MoodProvider extends ChangeNotifier {
   final List<MoodEntry> _moodHistory = [];
@@ -89,18 +90,4 @@ class MoodProvider extends ChangeNotifier {
       log('Error deleting mood: $e');
     }
   }
-}
-
-class MoodEntry {
-  final String mood;
-  final DateTime dateTime;
-  final IconData icon;
-  final Color moodColor;
-
-  MoodEntry({
-    required this.mood,
-    required this.dateTime,
-    required this.icon,
-    required this.moodColor,
-  });
 }

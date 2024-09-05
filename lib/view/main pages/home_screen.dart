@@ -4,9 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_glow_test/utils/constants.dart';
 import 'package:mind_glow_test/view%20model/auth_provider.dart';
 import 'package:mind_glow_test/view/auth/signin.dart';
-import 'package:mind_glow_test/view/main%20pages/features%20/book.dart';
-import 'package:mind_glow_test/view/main%20pages/features%20/videos.dart';
-import 'package:mind_glow_test/view/main%20pages/resources.dart';
+import 'package:mind_glow_test/view/main%20pages/features%20/book_screen.dart';
+import 'package:mind_glow_test/view/main%20pages/features%20/videos_screen.dart';
+import 'package:mind_glow_test/view/main%20pages/resources_screen.dart';
 import 'package:mind_glow_test/view/widgets/sub_heading.dart';
 import 'package:provider/provider.dart';
 
