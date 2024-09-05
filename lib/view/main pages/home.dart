@@ -2,23 +2,27 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_glow_test/utils/constants.dart';
+import 'package:mind_glow_test/view/main%20pages/features%20/book.dart';
+import 'package:mind_glow_test/view/main%20pages/features%20/social_media.dart';
+import 'package:mind_glow_test/view/main%20pages/features%20/videos.dart';
+import 'package:mind_glow_test/view/main%20pages/features%20/website.dart';
 import 'package:mind_glow_test/view/widgets/sub_heading.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final YoutubePlayerController _controller = YoutubePlayerController(
-      initialVideoId: YoutubePlayer.convertUrlToId(
-              'https://www.youtube.com/watch?v=inpok4MKVLM') ??
-          '',
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-      ),
-    );
+
+    // final YoutubePlayerController _controller = YoutubePlayerController(
+    //   initialVideoId: YoutubePlayer.convertUrlToId(
+    //           'https://www.youtube.com/watch?v=inpok4MKVLM') ??
+    //       '',
+    //   flags: const YoutubePlayerFlags(
+    //     autoPlay: false,
+    //     mute: false,
+    //   ),
+    // );
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -29,7 +33,17 @@ class HomePage extends StatelessWidget {
           'Hey Syam',
           style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 30),
         ),
-        actions: [const Icon(Icons.notifications_active_outlined), kWidth10],
+        actions: [
+          InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BookPage()),
+                );
+              },
+              child: const Icon(Icons.notifications_active_outlined)),
+          kWidth10
+        ],
       ),
       body: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -64,15 +78,82 @@ class HomePage extends StatelessWidget {
             // ),
             kHeight10,
 
-            _homeMindfullResourseList(),
+            // _homeMindfullResourseList(context),
+            ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: mindfullResourses.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: homePaddingAll5,
+                  width: double.infinity,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: .2),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    children: [
+                      kWIdth20,
+                      Icon(mindfullResoursesIcon[index]),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SubHeadings(
+                            title: mindfullResourses[index],
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      IconButton(
+                        icon: Icon(Icons.arrow_forward_ios_rounded),
+                        onPressed: () {
+                          // Navigate to the respective page based on index
+                          switch (index) {
+                            case 0:
+                              // Navigate to BookPage
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BookPage()),
+                              );
+                              break;
+                            case 1:
+                              // Navigate to WebsitePage
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => WebsitePage()) ,
+                              );
+                              break;
+                            case 2:
+                              // Navigate to VideoPage
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => VideosPage()),
+                              );
+                              break;
+                            case 3:
+                              // Navigate to SocialMediaPage
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => SocialMedia()),
+                              );
+                              break;
+                          }
+                        },
+                      ),
+                      kWidth10,
+                    ],
+                  ),
+                );
+              },
+            ),
             kHeight20,
           ],
         ),
       ),
     );
   }
-
-
 
   Container _homeDailyTipContainer() {
     return Container(
@@ -122,41 +203,46 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  ListView _homeMindfullResourseList() {
-    return ListView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: mindfullResourses.length,
-      itemBuilder: (context, index) {
-        return Container(
-          margin: homePaddingAll5,
-          width: double.infinity,
-          height: 80,
-          decoration: BoxDecoration(
-            border: Border.all(width: .2),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Row(
-            children: [
-              kWIdth20,
-              Icon(mindfullResoursesIcon[index]),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SubHeadings(
-                    title: mindfullResourses[index],
-                  ),
-                ],
-              ),
-              const Spacer(),
-              const Icon(Icons.arrow_forward_ios_rounded),
-              kWidth10,
-            ],
-          ),
-        );
-      },
-    );
-  }
+  // ListView _homeMindfullResourseList(BuildContext context) {
+  // return ListView.builder(
+  //   physics: const NeverScrollableScrollPhysics(),
+  //   shrinkWrap: true,
+  //   itemCount: mindfullResourses.length,
+  //   itemBuilder: (context, index) {
+  //     return Container(
+  //       margin: homePaddingAll5,
+  //       width: double.infinity,
+  //       height: 80,
+  //       decoration: BoxDecoration(
+  //         border: Border.all(width: .2),
+  //         borderRadius: BorderRadius.circular(20),
+  //       ),
+  //       child: Row(
+  //         children: [
+  //           kWIdth20,
+  //           Icon(mindfullResoursesIcon[index]),
+  //           Column(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               SubHeadings(
+  //                 title: mindfullResourses[index],
+  //               ),
+  //             ],
+  //           ),
+  //           const Spacer(),
+  //            IconButton(icon: Icon(Icons.arrow_forward_ios_rounded),
+  //             onPressed: () {
+
+  //             },
+  //            ),
+  //           kWidth10,
+  //         ],
+  //       ),
+  //     );
+  //   },
+  // );
+
+  // }
 
   SizedBox _homeDailyActivityList() {
     return SizedBox(

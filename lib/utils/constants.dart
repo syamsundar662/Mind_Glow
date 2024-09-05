@@ -197,3 +197,26 @@ List<String> moodDescriptions = [
   'Overjoyed',
   'Dissatisfied' // For Icons.sentiment_very_satisfied
 ];
+
+List<String> bookTitles = [
+  "The Miracle of Mindfulness",
+  "Wherever You Go, There You Are",
+  "The Power of Now",
+  "Radical Acceptance",
+  "10% Happier"
+];
+
+List<String> bookDescriptions = [
+  "A classic guide to mindfulness that offers practical exercises and teachings.",
+  "An introduction to mindfulness meditation and its benefits.",
+  "Focuses on the importance of living in the present moment and overcoming anxiety.",
+  "Explores how mindfulness and self-compassion can help in overcoming feelings of unworthiness.",
+  "A personal account of how mindfulness and meditation can improve life."
+];
+List<String> bookLinks = [
+  "https://www.google.co.in/books/edition/The_Miracle_of_Mindfulness/oXmSCwAAQBAJ?hl=en&gbpv=1&printsec=frontcover",
+  "https://www.google.co.in/books/edition/Wherever_You_Go_There_You_Are/kVHhCwAAQBAJ?hl=en&gbpv=1&printsec=frontcover",
+  "https://www.google.co.in/books/edition/The_Power_of_Now/sQYqRCIhFAMC?hl=en&gbpv=1&printsec=frontcover.",
+  "https://www.google.co.in/books/edition/Radical_Acceptance/njUp-vfM5DoC?hl=en&gbpv=1",
+  "https://www.google.co.in/books/edition/10_Happier/Yc2ZAwAAQBAJ?hl=en&gbpv=1&printsec=frontcover"
+];

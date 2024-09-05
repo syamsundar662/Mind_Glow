@@ -251,9 +251,7 @@
 // }
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mind_glow_test/view%20model/mood_provider.dart';
-import 'package:mind_glow_test/view/features/home.dart';
 import 'package:mind_glow_test/view/widgets/custom_text.dart';
 import 'package:mind_glow_test/view/widgets/sub_heading.dart';
 import 'package:provider/provider.dart'; // Make sure to import this

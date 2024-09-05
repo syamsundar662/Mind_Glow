@@ -4,6 +4,7 @@ import 'package:mind_glow_test/firebase_options.dart';
 import 'package:mind_glow_test/utils/theme.dart';
 
 import 'package:mind_glow_test/view%20model/auth_provider.dart';
+import 'package:mind_glow_test/view%20model/community_provider.dart';
 import 'package:mind_glow_test/view%20model/mood_provider.dart';
 import 'package:mind_glow_test/view%20model/resources_provider.dart';
 import 'package:mind_glow_test/view%20model/root_screen_provider.dart';
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => RootScreenProvider()),
         ChangeNotifierProvider(create: (context)=>MoodProvider()),
-        ChangeNotifierProvider(create: (context)=>CommentsProvider())
+        ChangeNotifierProvider(create: (context)=>CommentsProvider()),
+        ChangeNotifierProvider(create: (context)=>UserProvider ())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

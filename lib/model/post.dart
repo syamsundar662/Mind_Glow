@@ -27,8 +27,8 @@ class Posts {
 
 
 
-class Comments {
-    Comments({
+class Resources {
+    Resources({
         required this.postId,
         required this.id,
         required this.name,
@@ -42,8 +42,8 @@ class Comments {
     final String? email;
     final String? body;
 
-    factory Comments.fromJson(Map<String, dynamic> json){ 
-        return Comments(
+    factory Resources.fromJson(Map<String, dynamic> json){ 
+        return Resources(
             postId: json["postId"],
             id: json["id"],
             name: json["name"],

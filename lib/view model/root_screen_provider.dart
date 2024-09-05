@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mind_glow_test/view/features/community.dart';
-import 'package:mind_glow_test/view/features/home.dart';
-import 'package:mind_glow_test/view/features/mood.dart';
-import 'package:mind_glow_test/view/features/resources.dart';
+import 'package:mind_glow_test/view/main%20pages/community.dart';
+import 'package:mind_glow_test/view/main%20pages/home.dart';
+import 'package:mind_glow_test/view/main%20pages/mood.dart';
+import 'package:mind_glow_test/view/main%20pages/resources.dart';
 
 class RootScreenProvider extends ChangeNotifier {
   // String _mood = 'Neutral';
@@ -12,7 +12,7 @@ class RootScreenProvider extends ChangeNotifier {
     const HomePage(),
     const MoodTrackerScreen(),
      ResourcesPage(),
-    const CommunityPage(),
+     UsersListPage(),
   ];
 
   Widget get currentScreen => _screens[currentIndex];

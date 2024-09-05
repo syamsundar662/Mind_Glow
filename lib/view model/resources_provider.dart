@@ -4,22 +4,23 @@ import 'package:http/http.dart' as http;
 import 'package:mind_glow_test/model/post.dart';
 
 class CommentsProvider with ChangeNotifier {
-  List<Comments> _comments = [];
+  List<Resources> _resourseData = [];
   bool _isLoading = true;
 
-  List<Comments> get comments => _comments;
+  List<Resources> get comments => _resourseData;
   bool get isLoading => _isLoading;
 
   Future<void> fetchComments() async {
     _isLoading = true;
     notifyListeners();
 
-    final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/comments'));
+    final response = await http
+        .get(Uri.parse('https://jsonplaceholder.typicode.com/comments'));
 
     if (response.statusCode == 200) {
       final List<dynamic> jsonResponse = json.decode(response.body);
-      _comments = jsonResponse.map((json) => Comments.fromJson(json)).toList();
-      print(_comments);
+      _resourseData = jsonResponse.map((json) => Resources.fromJson(json)).toList();
+      print(_resourseData);
     } else {
       throw Exception('Failed to load comments');
     }

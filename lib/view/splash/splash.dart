@@ -5,8 +5,10 @@ import 'package:mind_glow_test/view/auth/signin.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
+    
     Future.delayed(Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
