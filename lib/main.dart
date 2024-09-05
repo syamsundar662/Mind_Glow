@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mind_glow_test/firebase_options.dart';
+import 'package:mind_glow_test/utils/theme.dart';
 
 import 'package:mind_glow_test/view%20model/auth_provider.dart';
 import 'package:mind_glow_test/view%20model/mood_provider.dart';
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme:ThemeData.light(),
+        theme:lightTheme,
+        
         home: RootScreen(),
       ),
     );

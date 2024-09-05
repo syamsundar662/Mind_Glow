@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mind_glow_test/view%20model/root_screen_provider.dart';
 import 'package:provider/provider.dart';
 
+
 class RootScreen extends StatelessWidget {
   const RootScreen({super.key});
   @override
@@ -10,9 +11,10 @@ class RootScreen extends StatelessWidget {
     return Scaffold(
       body: homeScreenProvider.currentScreen,
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.blueGrey,
-        unselectedItemColor: Colors.grey,
+        selectedItemColor: Colors.blueGrey[900],
+        unselectedItemColor: Colors.grey[500],
         useLegacyColorScheme: false,
+        type: BottomNavigationBarType.fixed,
         items: const [ 
         BottomNavigationBarItem(
           icon: Icon(Icons.home),

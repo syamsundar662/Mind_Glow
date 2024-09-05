@@ -7,10 +7,11 @@ class SubHeadings extends StatelessWidget {
   const SubHeadings({
     super.key,
     required this.title,
-    this.align,
+    this.align, this.color,
   });
   final String title;
   final TextAlign? align;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,7 @@ class SubHeadings extends StatelessWidget {
         textAlign: align,
         style: GoogleFonts.poppins(
           fontSize: 22,
+           color: color,
           fontWeight: FontWeight.w500,
         ),
       ),

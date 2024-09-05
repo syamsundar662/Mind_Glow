@@ -10,7 +10,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Create a YoutubePlayerController
     final YoutubePlayerController _controller = YoutubePlayerController(
       initialVideoId: YoutubePlayer.convertUrlToId(
               'https://www.youtube.com/watch?v=inpok4MKVLM') ??
@@ -40,48 +39,14 @@ class HomePage extends StatelessWidget {
             kHeight10,
             SubHeadings(title: getGreeting(), align: TextAlign.start),
             kHeight10,
-            _homeMainCarouselSlider(),
+            _homeMainCarouselSlider(context),
             kHeight10,
             const SubHeadings(
                 title: 'Daily Activities', align: TextAlign.start),
             kHeight10,
-            SizedBox(
-              height: 150,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                padding: homeSymmetricPadding,
-                physics: const AlwaysScrollableScrollPhysics(),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 15),
-                    child: Container(
-                      height: 150,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: quoteAccentColors[index]),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          kHeight40,
-                          Icon(
-                            dailyActivitiesIcons[index],
-                            size: 50,
-                          ),
-                          Text(
-                            dailyActivityHeadings[index],
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
+            _homeDailyActivityList(),
+            kHeight10,
+            _homeDailyTipContainer(),
             kHeight10,
             const SubHeadings(
               title: 'Mindful Resources',
@@ -98,48 +63,166 @@ class HomePage extends StatelessWidget {
             //   ),
             // ),
             kHeight10,
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: mindfullResourses.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: homePaddingAll5,
-                  width: double.infinity,
-                  height: 80,
-                  decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            blurRadius: 5.0,
-                            offset: const Offset(0.0, 2.0)),
-                      ],
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white),
-                  child: Row(
-                    children: [
-                      kWIdth20,
-                      Icon(mindfullResoursesIcon[index]),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SubHeadings(
-                            title: mindfullResourses[index],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              },
-            )
+
+            _homeMindfullResourseList(),
+            kHeight20,
           ],
         ),
       ),
     );
   }
 
-  CarouselSlider _homeMainCarouselSlider() {
+
+
+  Container _homeDailyTipContainer() {
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              quoteAccentColors[0],
+              quoteAccentColors[3],
+              // Colors.white,
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          color: Colors.blueAccent[100],
+          borderRadius: BorderRadius.circular(20)),
+      margin: homeSymmetricPadding,
+      height: 120,
+      width: double.infinity,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Daily Tips',
+                style: GoogleFonts.poppins(
+                  fontSize: 23,
+                  fontWeight: FontWeight.w500,
+                  // color: Colors.white
+                ),
+              ),
+              Text(
+                homeQuotes[1],
+                textAlign: TextAlign.justify,
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  // color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  ListView _homeMindfullResourseList() {
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: mindfullResourses.length,
+      itemBuilder: (context, index) {
+        return Container(
+          margin: homePaddingAll5,
+          width: double.infinity,
+          height: 80,
+          decoration: BoxDecoration(
+            border: Border.all(width: .2),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Row(
+            children: [
+              kWIdth20,
+              Icon(mindfullResoursesIcon[index]),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SubHeadings(
+                    title: mindfullResourses[index],
+                  ),
+                ],
+              ),
+              const Spacer(),
+              const Icon(Icons.arrow_forward_ios_rounded),
+              kWidth10,
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  SizedBox _homeDailyActivityList() {
+    return SizedBox(
+      height: 150,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: homeSymmetricPadding,
+        physics: const AlwaysScrollableScrollPhysics(),
+        itemCount: dailyActivityHeadings.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text(dailyActivityHeadings[index]),
+                      content: Text(dailtActivityDescriptions[index]),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                          child: const Text(
+                            'OK',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: Container(
+                height: 150,
+                width: 150,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: quoteAccentColors[index]),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    kHeight40,
+                    Icon(
+                      dailyActivitiesIcons[index],
+                      size: 50,
+                    ),
+                    Text(
+                      dailyActivityHeadings[index],
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w400, fontSize: 15),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  CarouselSlider _homeMainCarouselSlider(BuildContext context) {
     return CarouselSlider.builder(
         itemCount: homeQuotes1.length,
         itemBuilder: (context, index, realIndex) {
@@ -193,7 +276,3 @@ class HomePage extends StatelessWidget {
         ));
   }
 }
-
-
-
-

@@ -4,7 +4,7 @@ import 'package:mind_glow_test/model/mood_entry.dart';
 
 
 class MoodProvider extends ChangeNotifier {
-  List<MoodEntry> _moodHistory = [];
+  final List<MoodEntry> _moodHistory = [];
   DateTime? _lastMoodDate; // Track the date of the last mood entry
 
   List<MoodEntry> get moodHistory => _moodHistory;
