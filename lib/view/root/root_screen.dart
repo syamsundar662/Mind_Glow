@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:mind_glow_test/view%20model/home_view_model.dart';
+import 'package:mind_glow_test/view%20model/root_screen_provider.dart';
 import 'package:provider/provider.dart';
 
 class RootScreen extends StatelessWidget {
-  RootScreen({super.key});
+  const RootScreen({super.key});
   @override
   Widget build(BuildContext context) {
     final homeScreenProvider = Provider.of<RootScreenProvider>(context);
     return Scaffold(
       body: homeScreenProvider.currentScreen,
-      bottomNavigationBar: BottomNavigationBar(items: [
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.blueGrey,
+        unselectedItemColor: Colors.grey,
+        items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',

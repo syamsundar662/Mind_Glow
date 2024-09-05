@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mind_glow_test/view%20model/auth_provider.dart';
-import 'package:mind_glow_test/view/home/home_screen.dart';
+import 'package:mind_glow_test/view/root/root_screen.dart';
 import 'package:mind_glow_test/view/auth/signup.dart';
 import 'package:provider/provider.dart';
 

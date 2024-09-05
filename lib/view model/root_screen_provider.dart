@@ -11,7 +11,7 @@ class RootScreenProvider extends ChangeNotifier {
   final List<Widget> _screens = [
     const HomePage(),
     const MoodTrackerScreen(),
-    const ResourcesPage(),
+     ResourcesPage(),
     const CommunityPage(),
   ];
 
