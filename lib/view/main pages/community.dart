@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mind_glow_test/view%20model/community_provider.dart';
 import 'package:mind_glow_test/view/main%20pages/community_user_details.dart';
+import 'package:mind_glow_test/view/widgets/sub_heading.dart';
 import 'package:provider/provider.dart';
 class UsersListPage extends StatelessWidget {
   @override
@@ -8,7 +9,7 @@ class UsersListPage extends StatelessWidget {
     final userProvider = Provider.of<UserProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text('Users')),
+      appBar: AppBar(title: SubHeadings(title: 'Community')),
       body: userProvider.isLoading
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(

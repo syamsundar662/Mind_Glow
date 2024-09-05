@@ -265,15 +265,17 @@ class MoodTrackerScreen extends StatefulWidget {
 }
 
 class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
-  int? selectedMoodIndex; // To keep track of the selected mood index
+  int? selectedMoodIndex;
 
   @override
   Widget build(BuildContext context) {
     final moodProvider =
-        Provider.of<MoodProvider>(context); // Access MoodProvider
+        Provider.of<MoodProvider>(context); 
 
     return SafeArea(
+      
       child: Scaffold(
+          appBar: AppBar(title: const SubHeadings(title: 'Mood Tracker')),
           body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

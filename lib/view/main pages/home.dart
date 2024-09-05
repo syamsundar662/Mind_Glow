@@ -129,7 +129,7 @@ class HomePage extends StatelessWidget {
                               // Navigate to VideoPage
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => VideosPage()),
+                                MaterialPageRoute(builder: (context) => VideoPage())
                               );
                               break;
                             case 3:
@@ -362,3 +362,11 @@ class HomePage extends StatelessWidget {
         ));
   }
 }
+
+
+List<String> videoLinks = [
+  'https://www.youtube.com/watch?v=ssss7V1_eyA',
+  'https://www.youtube.com/watch?v=ssss7V1_eyA',
+  'https://www.youtube.com/watch?v=ssss7V1_eyA',
+  'https://www.youtube.com/watch?v=ssss7V1_eyA'
+];

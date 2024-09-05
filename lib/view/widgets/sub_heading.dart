@@ -12,6 +12,7 @@ class SubHeadings extends StatelessWidget {
   final String title;
   final TextAlign? align;
   final Color? color;
+  
 
   @override
   Widget build(BuildContext context) {
